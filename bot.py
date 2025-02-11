@@ -2,7 +2,7 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
 import os
 
-TOKEN = os.getenv("7748063981:AAG1UdfUtcp8Qip8TXzmYWcyXiYFLhE1EpU")  # Get the token from Render environment variables
+TOKEN = os.getenv("TOKEN")  # Get the token from Render environment variables
 
 async def start(update: Update, context: CallbackContext):
     await update.message.reply_text("Hello! I'm your bot.")
