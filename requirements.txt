@@ -7,3 +7,4 @@ pydub
 pytz
 sqlalchemy
 cachetools
+flask
