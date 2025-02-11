@@ -10,8 +10,7 @@ users_data = {}
 
 async def get_or_create_user_data(user_id: int):
     """
-    Возвращает словарь-данные пользователя, либо создаёт запись в БД, если её нет.
-    Если возникает гонка при создании, обрабатываем IntegrityError и повторно получаем запись.
+    Returns a dictionary of user data, or creates an entry in the database if it does not exist. If a race occurs during creation, we handle the IntegrityError and re-fetch the record.
     """
     if user_id in users_data:
         return users_data[user_id]
@@ -37,7 +36,7 @@ async def get_or_create_user_data(user_id: int):
                     await session.commit()
 
             if user_db_obj is None:
-                raise RuntimeError("Не удалось создать или найти пользователя в БД.")
+                raise RuntimeError("Failed to create or find a user in the database.")
 
             await session.refresh(user_db_obj)
 
@@ -48,7 +47,7 @@ async def get_or_create_user_data(user_id: int):
 
 async def save_user_data(user_id: int) -> None:
     """
-    Сохраняем изменения из локального кэша в БД.
+    save changes from the local cache to the database.
     """
     user_data_dict = users_data.get(user_id)
     if not user_data_dict:
