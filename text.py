@@ -1,31 +1,27 @@
 start_message = (
-    "Привет! Бот готов к работе"
+    "Welcome"
 )
 
 null_message = (
-    "Бот готов к работе, текущая модель - GPT-4o mini, "
-    "голосовой ответ выключен, контекст диалога очищен, "
-    "счетчик сообщений сброшен, системная роль удалена, "
-    "установлено качество картинки standard, размер картинки 1024x1024, "
-    "ассистентский тред сброшен."
+"the current model is GPT-4o mini," "voice response is turned off, dialogue context is cleared, " "message counter reset, system role deleted, " "The picture quality is set to standard, the picture size is 1024x1024," "assistant thread reset."
 )
 
 system_message_text = (
-    "<b>Введите значение системной роли, текстом или голосом, например она может быть "
-    "такой - </b><code>Ты всегда отвечаешь как пират.</code>"
+    "<b>Enter the value of the system role, by text or voice, for example it can be "
+    "like - </b><code>You always answer You always answer like a pirate. like a pirate.</code>"
 )
 
 help_message = (
-    "🪧 <b>Команды Бота:</b>\n"
-    "/start - Запуск бота\n"
-    "/menu - Главное меню\n"
-    "/help - Показать справку\n"
-    "/null - Сброс к заводским настройкам\n\n"
-    "⚙️ <b>Главное меню:</b>\n"
-    " - <b>Выбор модели:</b> Изменить модель/режим\n"
-    " - <b>Параметры картинки:</b> Настройка генерации изображений\n"
-    " - <b>Контекст:</b> Показать или очистить историю сообщений\n"
-    " - <b>Аудио:</b> Включить или выключить аудио ответы\n"
-    " - <b>Системная роль:</b> Назначить или убрать системную роль\n"
-    " - <b>Информация:</b> Показать текущую конфигурацию и статистику"
+    " <b>Bot Commands:</b>\n"
+    "/start - Start\n"
+    "/menu - Menu\n"
+    "/help - Help\n"
+    "/null - Reset to Default settings\n\n"
+    " <b>Main menu:</b>\n"
+    " - <b>Model selection:</b> Change model\n"
+    " - <b>Image Options:</b> Setting up image generation\n"
+    " - <b>Context:</b> Show or clear message history\n"
+    " - <b>Audio:</b> Turn audio responses on or off\n"
+    " - <b>System role:</b> Assign or remove a system role\n"
+    " - <b>Info:</b> Show current configuration and statistics"
 )
