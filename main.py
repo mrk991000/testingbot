@@ -4,18 +4,23 @@ import logging
 import sys
 import os
 from pathlib import Path
-
+from flask import Flask  # Added Flask
 from aiogram import Bot, Dispatcher, types
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
-
 from classes import init_async_db
 from handler_menu import router
 
 config = configparser.ConfigParser()
-
 TOKEN = os.getenv("TOKEN")
+
+# Flask app to keep Render happy
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running!", 200
 
 async def set_commands(bot: Bot):
     commands = {
@@ -31,7 +36,6 @@ async def set_commands(bot: Bot):
     for scope, command_list in commands.items():
         await bot.set_my_commands(commands=command_list, scope=scope)
 
-
 async def start_bot():
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=MemoryStorage())
@@ -39,8 +43,7 @@ async def start_bot():
     await bot.delete_webhook(drop_pending_updates=True)
     return bot, dp
 
-
-async def main():
+async def run_bot():
     bot = None
     try:
         await init_async_db()
@@ -53,7 +56,14 @@ async def main():
         if bot is not None:
             await bot.session.close()
 
+async def main():
+    logging.basicConfig(level=logging.ERROR, stream=sys.stdout)
+
+    # Run the bot and Flask server together
+    bot_task = asyncio.create_task(run_bot())  
+    flask_task = asyncio.to_thread(app.run, host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
+
+    await asyncio.gather(bot_task, flask_task)
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.ERROR, stream=sys.stdout)
     asyncio.run(main())
