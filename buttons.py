@@ -1,12 +1,12 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 BUTTONS_ALL = [
-    ("Выбор модели/режима", "model_choice"),
-    ("Настройки изображения", "pic_setup"),
-    ("Действия с контекстом", "context_work"),
-    ("Голосовые ответы", "voice_answer_work"),
-    ("Системная роль", "system_value_work"),
-    ("Информация", "info"),
+    ("Choose AI Model", "model_choice"),
+    ("Image Settings", "pic_setup"),
+    ("Actions with context", "context_work"),
+    ("Voice replies", "voice_answer_work"),
+    ("System role", "system_value_work"),
+    ("Info", "info"),
 ]
 
 inline_buttons = [
@@ -40,7 +40,7 @@ BUTTONS_MODEL = [
     ("o3 mini", "o3-mini"),
     ("DALL·E 3", "dall_e_3"),
     ("ASSISTANT", "assistant"),
-    ("Назад в меню", "back_menu"),
+    ("Back to menu", "back_menu"),
 ]
 
 inline_buttons_model = [
@@ -52,9 +52,9 @@ keyboard_model = InlineKeyboardMarkup(
 )
 
 BUTTONS_CONTEXT = [
-    ("Показать контекст", "context"),
-    ("Очистить контекст", "clear"),
-    ("Назад в меню", "back_menu"),
+    ("Show context", "context"),
+    ("Clear context", "clear"),
+    ("Back to menu", "back_menu"),
 ]
 
 inline_buttons_context = [
@@ -67,9 +67,9 @@ keyboard_context = InlineKeyboardMarkup(
 )
 
 BUTTONS_VOICE = [
-    ("Включить аудио ответ", "voice_answer_add"),
-    ("Выключить аудио ответ", "voice_answer_del"),
-    ("Назад в меню", "back_menu"),
+    ("Enable audio response", "voice_answer_add"),
+    ("Disable audio response", "voice_answer_del"),
+    ("Back to menu", "back_menu"),
 ]
 
 inline_buttons_voice = [
@@ -81,9 +81,9 @@ keyboard_voice = InlineKeyboardMarkup(
 )
 
 BUTTONS_VALUE_WORK = [
-    ("Назначить системную роль", "change_value"),
-    ("Убрать системную роль", "delete_value"),
-    ("Назад в меню", "back_menu"),
+    ("Assign a system role", "change_value"),
+    ("Remove system role", "delete_value"),
+    ("Back to menu", "back_menu"),
 ]
 
 inline_buttons_value_work = [
