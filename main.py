@@ -20,10 +20,10 @@ TOKEN = os.getenv("TOKEN")
 async def set_commands(bot: Bot):
     commands = {
         types.BotCommandScopeAllPrivateChats(): [
-            types.BotCommand(command="/start", description="📌 старт"),
-            types.BotCommand(command="/menu", description="⚙️ меню"),
-            types.BotCommand(command="/help", description="🧰 помощь!"),
-            types.BotCommand(command="/null", description="🛠 заводские настройки"),
+            types.BotCommand(command="/start", description="Start"),
+            types.BotCommand(command="/menu", description="Menu"),
+            types.BotCommand(command="/help", description="Help"),
+            types.BotCommand(command="/null", description="Default Settings"),
         ],
         types.BotCommandScopeAllGroupChats(): [],
     }
