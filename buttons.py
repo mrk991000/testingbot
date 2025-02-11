@@ -21,7 +21,7 @@ pic_buttons = [
     ("1024x1024", "set_1024x1024"),
     ("1024x1792", "set_1024x1792"),
     ("1792x1024", "set_1792x1024"),
-    ("Назад в меню", "back_menu"),
+    ("Back to menu", "back_menu"),
 ]
 
 inline_buttons_pic = [
