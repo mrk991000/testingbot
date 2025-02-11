@@ -146,7 +146,7 @@ async def process_callback_model_choice(
     user_data = await get_or_create_user_data(user_id)
 
     await callback_query.message.edit_text(
-        text=f"<i>Модель:</i> {user_data["model_message_info"]} ",
+        text=f"<i>Модель:</i> {user_data['model_message_info']} ",
         reply_markup=keyboard_model,
     )
 
