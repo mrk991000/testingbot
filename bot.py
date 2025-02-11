@@ -1,14 +1,18 @@
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
+import os
 
-TOKEN = "7748063981:AAG1UdfUtcp8Qip8TXzmYWcyXiYFLhE1EpU"
+TOKEN = os.getenv("7748063981:AAG1UdfUtcp8Qip8TXzmYWcyXiYFLhE1EpU")  # Get the token from Render environment variables
 
-def start(update: Update, context: CallbackContext):
-    update.message.reply_text("Hello! I'm your bot.")
+async def start(update: Update, context: CallbackContext):
+    await update.message.reply_text("Hello! I'm your bot.")
 
-updater = Updater(TOKEN)
-dp = updater.dispatcher
-dp.add_handler(CommandHandler("start", start))
+def main():
+    app = Application.builder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
 
-updater.start_polling()
-updater.idle()
+    print("Bot is running...")
+    app.run_polling()  # Keep the bot running
+
+if __name__ == "__main__":
+    main()
