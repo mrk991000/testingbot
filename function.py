@@ -30,7 +30,7 @@ async def info_menu_func(user_id):
 
     info_menu = (
         f"<i>Сообщений:</i> <b>{user_data['count_messages']}</b>\n"
-        f"<i>Модель:</i> <b>{user_data[\'model_message_info\']}</b>\n"
+        f"<i>Модель:</i> <b>{user_data['model_message_info']}</b>\n"
         f"<i>Аудио:</i> <b>{info_voice_answer}</b>\n"
         f"<i>Роль:</i> <b>{info_system_message}</b>\n"
         f"<i>Картинка</i>\n"
