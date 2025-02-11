@@ -14,12 +14,11 @@ from pydub import AudioSegment
 from base import get_or_create_user_data
 
 config = configparser.ConfigParser()
-config.read(Path(__file__).parent / "config.ini")
 
 TOKEN = os.getenv("TOKEN")
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
-openai_api_key = config.get("OpenAI", "api_key")
+openai_api_key = os.getenv("API_KEY")
 client = OpenAI(api_key=openai_api_key)
 
 
