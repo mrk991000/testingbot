@@ -1,0 +1,9 @@
+aiogram
+aiosqlite
+ffmpeg
+magic-filter
+openai
+pydub
+pytz
+sqlalchemy
+cachetools
