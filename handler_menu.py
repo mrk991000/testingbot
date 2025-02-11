@@ -39,8 +39,7 @@ formatted_datetime = current_datetime.strftime("%d.%m.%Y %H:%M:%S")
 config = configparser.ConfigParser()
 config.read(Path(__file__).parent / "config.ini")
 openai_api_key = config.get("OpenAI", "api_key")
-TOKEN = config.get("Telegram", "token")
-
+TOKEN = os.getenv("TOKEN")
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 client = OpenAI(api_key=openai_api_key)
