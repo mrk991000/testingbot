@@ -26,24 +26,24 @@ client = OpenAI(api_key=openai_api_key)
 async def info_menu_func(user_id):
     user_data = await get_or_create_user_data(user_id)
 
-    info_voice_answer = "Включен" if user_data["voice_answer"] else "Выключен"
-    info_system_message = "Задана" if user_data["system_message"] else "Отсутствует"
+    info_voice_answer = "On" if user_data["voice_answer"] else "Off"
+    info_system_message = "given" if user_data["system_message"] else "Absent"
 
     info_menu = (
-        f"<i>Сообщений:</i> <b>{user_data['count_messages']}</b>\n"
-        f"<i>Модель:</i> <b>{user_data['model_message_info']}</b>\n"
-        f"<i>Аудио:</i> <b>{info_voice_answer}</b>\n"
-        f"<i>Роль:</i> <b>{info_system_message}</b>\n"
-        f"<i>Картинка</i>\n"
-        f"<i>Качество:</i> <b>{user_data['pic_grade']}</b>\n"
-        f"<i>Размер:</i> <b>{user_data['pic_size']}</b>"
+        f"<i>Messages:</i> <b>{user_data['count_messages']}</b>\n"
+        f"<i>Model:</i> <b>{user_data['model_message_info']}</b>\n"
+        f"<i>Audio:</i> <b>{info_voice_answer}</b>\n"
+        f"<i>Role:</i> <b>{info_system_message}</b>\n"
+        f"<i>Image</i>\n"
+        f"<i>Quality:</i> <b>{user_data['pic_grade']}</b>\n"
+        f"<i>Size:</i> <b>{user_data['pic_size']}</b>"
     )
     return info_menu
 
 
 async def prune_messages(messages, max_chars):
     """
-    Обрезает историю сообщений по символам, начиная с конца.
+    Trims the message history character by character, starting from the end.
     """
     pruned_messages = []
     total_chars = 0
@@ -67,8 +67,7 @@ async def prune_messages(messages, max_chars):
 
 async def process_voice_message(bot: Bot, message: types.Message, user_id: int):
     """
-    Скачивает голосовое сообщение, конвертирует его в mp3 и отправляет на распознавание через OpenAI.
-    Возвращает текст транскрипции.
+    Downloads a voice message, converts it to mp3 and sends it for recognition via OpenAI. Returns the text of the transcription.
     """
     file_id = message.voice.file_id
     file_info = await bot.get_file(file_id)
@@ -89,7 +88,7 @@ async def process_voice_message(bot: Bot, message: types.Message, user_id: int):
 
     if not mp3_path.exists() or mp3_path.stat().st_size == 0:
         raise RuntimeError(
-            "Конвертация файла завершилась неудачно, mp3-файл не создан."
+            "File conversion failed"
         )
 
     def call_whisper():
@@ -105,15 +104,14 @@ async def process_voice_message(bot: Bot, message: types.Message, user_id: int):
 
 def chunk_text(text: str, chunk_size: int = 500) -> list[str]:
     """
-    Делит строку `text` на список кусочков по длине не более `chunk_size`.
+    Divides the string `text` into a list of chunks of length no greater than `chunk_size`.
     """
     return [text[i : i + chunk_size] for i in range(0, len(text), chunk_size)]
 
 
 def write_streaming_response(streaming_resp, file_path: Path, chunk_size: int = 1024):
     """
-    Синхронная функция, которая записывает потоковый ответ в файл.
-    Ожидается, что streaming_resp имеет метод iter_bytes(), возвращающий данные порциями.
+    A synchronous function that writes a stream response to a file. Streaming_resp is expected to have an iter_bytes() method that returns data in chunks.
     """
     with open(file_path, "wb") as f:
         for chunk in streaming_resp.iter_bytes(chunk_size=chunk_size):
@@ -122,8 +120,7 @@ def write_streaming_response(streaming_resp, file_path: Path, chunk_size: int = 
 
 async def text_to_speech(unic_id: int, text_message: str):
     """
-    Генерирует голосовые сообщения, разделяя текст на части по 500 символов.
-    Для каждой части вызывается TTS через OpenAI API.
+    Generates voice messages by dividing the text into parts of 500 characters. For each part, the TTS is called via the OpenAI API.
     """
     from aiogram.types import FSInputFile
 
@@ -156,20 +153,20 @@ async def text_to_speech(unic_id: int, text_message: str):
             msg = await bot.send_audio(
                 unic_id,
                 audio,
-                title=f"Аудио вариант ответа (часть {index})",
+                title=f"Audio answer option (part {index})",
             )
             results.append(msg)
 
         except Exception as e:
             await bot.send_message(
                 unic_id,
-                f"Ошибка при озвучке части {index}: {e}",
+                f"Error in voicing part {index}: {e}",
             )
     return results
 
 
 async def download_image(bot: Bot, file_id: str) -> bytes:
-    """Скачивает файл из Telegram и возвращает bytes"""
+    """Downloads a file from Telegram and returns bytes"""
     try:
         file = await bot.get_file(file_id)
 
@@ -181,8 +178,8 @@ async def download_image(bot: Bot, file_id: str) -> bytes:
                 return await response.read()
 
     except aiohttp.ClientError as e:
-        logging.error(f"Ошибка сети: {str(e)}")
-        raise ValueError("Не удалось загрузить изображение из Telegram")
+        logging.error(f"Network error: {str(e)}")
+        raise ValueError("Failed to load image from Telegram")
     except Exception as e:
-        logging.error(f"Общая ошибка: {str(e)}")
-        raise ValueError("Ошибка при загрузке файла")
+        logging.error(f"General error: {str(e)}")
+        raise ValueError("Error uploading file")
