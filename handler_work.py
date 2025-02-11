@@ -3,6 +3,7 @@ import base64
 import configparser
 import logging
 import re
+import os
 from pathlib import Path
 from typing import Optional
 
