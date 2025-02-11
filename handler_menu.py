@@ -37,14 +37,14 @@ formatted_datetime = current_datetime.strftime("%d.%m.%Y %H:%M:%S")
 
 
 config = configparser.ConfigParser()
-config.read(Path(__file__).parent / "config.ini")
-openai_api_key = config.get("OpenAI", "api_key")
+
+openai_api_key = os.getenv("API_KEY")
 TOKEN = os.getenv("TOKEN")
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 client = OpenAI(api_key=openai_api_key)
 
-OWNER_ID = {int(owner_id) for owner_id in config.get("Telegram", "owner_id").split(",")}
+OWNER_ID = {int(owner_id) for owner_id in os.getenv("OWNER_ID").split(",")}
 
 router = Router()
 
