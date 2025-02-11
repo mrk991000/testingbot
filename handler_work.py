@@ -23,9 +23,9 @@ from function import (
 )
 
 config = configparser.ConfigParser()
-config.read(Path(__file__).parent / "config.ini")
-OPENAI_ASSISTANT_ID = config.get("OpenAI", "assistant_id", fallback="")
-OPENAI_API_KEY = config.get("OpenAI", "api_key")
+
+OPENAI_ASSISTANT_ID = os.getenv("ASSISTANT_ID")
+OPENAI_API_KEY = os.getenv("API_KEY")
 
 client_async = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
