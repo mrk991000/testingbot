@@ -24,8 +24,7 @@ Base = declarative_base()
 
 class UserDataModel(Base):
     """
-    SQLAlchemy-модель для хранения пользовательских данных.
-    Таблица 'users_data'.
+    SQLAlchemy model for storing user data. Table  'users_data'.
     """
 
     __tablename__ = "users_data"
@@ -45,7 +44,7 @@ class UserDataModel(Base):
 
     def to_dict(self) -> dict:
         """
-        Преобразует SQLAlchemy-объект в словарь для удобной передачи в код.
+        Converts a SQLAlchemy object into a dictionary for easy passing into code.
         """
         return {
             "user_id": self.user_id,
@@ -65,8 +64,7 @@ class UserDataModel(Base):
 
 async def init_async_db() -> None:
     """
-    Создаём таблицы на лету (без Alembic).
-    Если используете Alembic, таблицы будут создаваться миграциями.
+    We create tables on the fly (without Alembic). If you are using Alembic, the tables will be created by migrations.
     """
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
