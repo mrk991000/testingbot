@@ -2,6 +2,7 @@ import asyncio
 import configparser
 import logging
 import sys
+import os
 from pathlib import Path
 
 from aiogram import Bot, Dispatcher, types
