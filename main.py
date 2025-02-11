@@ -14,7 +14,6 @@ from classes import init_async_db
 from handler_menu import router
 
 config = configparser.ConfigParser()
-config.read(Path(__file__).parent / "config.ini")
 
 TOKEN = os.getenv("TOKEN")
 
