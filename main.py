@@ -15,8 +15,7 @@ from handler_menu import router
 config = configparser.ConfigParser()
 config.read(Path(__file__).parent / "config.ini")
 
-TOKEN = config.get("Telegram", "token")
-
+TOKEN = os.getenv("TOKEN")
 
 async def set_commands(bot: Bot):
     commands = {
